@@ -24,7 +24,7 @@
             required
             >
           </label>
-          <span class="start-balance-input-error form-input-error"></span>
+          <span id="start-balance-error" class="form-input-error text-caption"></span>
           <label class="flex flex-col gap-1">
             <span class="text-caption text-(--secondarytext-color) px-3">На срок</span>
             <div class="relative w-full">
@@ -41,7 +41,7 @@
               </svg>
             </div>
           </label>
-          <span class="time-limit-input-error form-input-error"></span>
+          <span id="start-date-error" class="form-input-error text-caption"></span>
           <button type="submit" form="start-form" class="button button--color text-body-accent mt-auto">Рассчитать</button>
 
         </form>
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div class="text-caption text-(--primarytext-color)">ОТлтчно ырваирвиыарао ыраирвыиаврыа ывавыа</div>
-          <form class="form lg:p-0 md:p-0" name="add-expense">
+          <form id="add-expense" class="form lg:p-0 md:p-0" name="add-expense">
             <label class="flex flex-col gap-1">
               <span class="text-caption text-(--secondarytext-color) px-3">Введите трату</span>
               <input
@@ -87,6 +87,8 @@
               class="text-body input input--primary"
               >
             </label>
+            <span id="expense-error" class="form-input-error text-caption"></span>
+            <button type="submit" form="start-form" class="button button--color text-body-accent mt-auto">Добавить</button>
           </form>
         </div>
 
@@ -117,7 +119,7 @@
       </section>
 
         <section id="edit-page" class="">
-            <form name="edit-form" class="form">
+            <form id="edit-form" name="edit-form" class="form">
               <div class="balance gap-3 md:p-0 lg:p-0">
                 <div class="flex flex-row justify-between">
                   <div class="text-body m-0 text-(--secondarytext-color)">Общий баланс</div>
@@ -129,7 +131,7 @@
                 </div>
               </div>
               <div class="form md:p-0 lg:p-0">
-                <label class="flex flex-col gap-1 md:hidden lg:hidden">
+                <!-- <label class="flex flex-col gap-1 md:hidden lg:hidden">
                   <span class="text-caption text-(--secondarytext-color) px-3">Ваш баланс</span>
                   <input
                   id="edit-balance-input"
@@ -138,8 +140,8 @@
                   name="edit-balance"
                   required
                   >
-                </label>
-              <!-- <span class="start-balance-input-error form-input-error"></span> -->
+                </label> -->
+              <!-- <span class="start-balance-input-error form-input-error text-caption"></span> -->
                 <label class="flex flex-col gap-1">
                   <span class="text-caption text-(--secondarytext-color) px-3">Пополнить</span>
                   <input
@@ -151,7 +153,7 @@
                   required
                   >
                 </label>
-              <!-- <span class="start-balance-input-error form-input-error"></span> -->
+              <span id="edit-balance-error" class="form-input-error text-caption"></span>
                 <label class="flex flex-col gap-1">
                   <span class="text-caption text-(--secondarytext-color) px-3">На срок</span>
                   <div class="relative w-full">
@@ -167,7 +169,7 @@
                     </svg>
                   </div>
                 </label>
-            <!-- <span class="time-limit-input-error form-input-error"></span> -->
+            <span id="edit-date-error" class="form-input-error text-caption"></span>
                 <div class="flex flex-col gap-5 mt-auto">
                   <button class="button button--not-color text-body-accent mt-auto md:hidden">Вернуться без сохранения</button>
                   <button type="submit" form="edit-form" class="button button--color text-body-accent mt-auto">Сохранить</button>
