@@ -1,0 +1,30 @@
+@theme {
+  --primary-color: #3B82F6;
+  --success-color: #10B981;
+  --error-color: #EF4444;
+  --primarytext-color: #111827;
+  --secondarytext-color: #6B7280;
+  --background-color: #F9FAFB;
+  --border-color: #E5E7EB;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  body {
+    @apply m-0 p-0;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .app {
+    @apply w-screen min-h-screen flex justify-start flex-col;
+    @apply md:px-40 md:bg-(--background-color);
+    @apply lg:px-37;
+  }
+}

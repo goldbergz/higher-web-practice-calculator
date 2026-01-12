@@ -1,0 +1,21 @@
+@layer components {
+  #start-page {
+    @apply w-screen h-screen flex justify-between flex-col bg-white px-4 py-8;
+    @apply md:bg-(--background-color) md:px-22 md:py-0 md:flex md:items-center md:justify-center;
+    @apply lg:px-0;
+  }
+
+  .form {
+    @apply w-full flex flex-col gap-3 h-full;
+    @apply md:max-w-[524px] md:bg-white md:px-6 md:py-6 md:rounded-[16px] md:h-auto;
+    @apply lg:max-w-[558px];
+  }
+
+  .input {
+    @apply w-full border-2 rounded-[8px] px-3 py-3 border-[color:var(--border-color)] text-base outline-none transition-colors focus:border-[color:var(--primary-color)];
+  }
+
+  .input--select {
+    @apply border-2 appearance-none;
+  }
+}

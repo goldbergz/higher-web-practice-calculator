@@ -1,0 +1,18 @@
+@layer components {
+  .button {
+    @apply w-full rounded-[4px] py-2 text-base leading-[1.5] tracking-normal font-medium transition-colors cursor-pointer;
+    @apply md:mt-6;
+  }
+
+  .button--color {
+    @apply bg-(--primary-color) text-white border-0 hover:opacity-85 active:opacity-100;
+  }
+
+  .button--not-color {
+    @apply border border-(--primary-color) text-(--primary-color) bg-white hover:bg-[rgba(59,130,246,0.1)] active:opacity-100;
+  }
+
+  .button-history {
+    @apply md:hidden;
+  }
+}

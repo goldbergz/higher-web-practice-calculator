@@ -8,6 +8,174 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="app">
+
+      <section id="start-page" class="hidden">
+        <form id="start-form" name="start-form" class="form">
+          <h1 class="text-(--primarytext-color) text-h1 m-0 p-0">Начнём!</h1>
+          <label class="flex flex-col gap-1">
+            <span class="text-caption text-(--secondarytext-color) px-3">Укажите баланс</span>
+            <input
+            id="start-balance-input"
+            placeholder="Стартовый баланс"
+            type="number"
+            class="text-body input input--primary"
+            name="start-balance"
+            required
+            >
+          </label>
+          <span class="start-balance-input-error form-input-error"></span>
+          <label class="flex flex-col gap-1">
+            <span class="text-caption text-(--secondarytext-color) px-3">На срок</span>
+            <div class="relative w-full">
+              <input
+              id="time-limit-input"
+              type="text"
+              placeholder="Выберите срок"
+              class="text-body input placeholder:text-(--secondarytext-color) cursor-pointer"
+              name="time-limit"
+              required
+              >
+              <svg class="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="18" height="10" viewBox="0 0 18 10" fill="none">
+                <path d="M0.75 0.75L8.75 8.75L16.75 0.75" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </label>
+          <span class="time-limit-input-error form-input-error"></span>
+          <button type="submit" form="start-form" class="button button--color text-body-accent mt-auto">Рассчитать</button>
+
+        </form>
+      </section>
+
+      <section id="main-page" class="page hidden">
+        <div class="balance">
+          <div class="flex flex-col gap-0.5">
+            <div class="balance__header flex flex-row justify-between">
+              <div class="text-body m-0 text-(--secondarytext-color)">Общий баланс</div>
+              <div class="text-body m-0 text-(--primary-color)">2000 р в день</div>
+            </div>
+            <div class="balance__main-content flex flex-row items-center justify-start gap-2">
+              <h2 class="text-h2 m-0 text-(--primarytext-color)">9000 р</h2>
+              <span class="text-body m-0 text-(--secondarytext-color)">на 5 дней</span>
+            </div>
+          </div>
+          <div class="balance__buttons flex flex-row justify-between gap-4">
+            <button class="button text-body-accent button--not-color">Изменить</button>
+            <button class="button-history button text-body-accent button--not-color">История расходов</button>
+          </div>
+        </div>
+
+        <div class="available-sum">
+          <div>
+            <div class="text-body-accent text-(--secondarytext-color)">На сегодня доступно</div>
+            <div class="available-sum__money flex flex-row gap-1">
+              <h1 class="text-h1 m-0 text-(--success-color)">1000 Р</h1>
+              <h1 class="text-h1 m-0 text-(--secondarytext-color)">/</h1>
+              <h1 class="text-h1 m-0 text-(--secondarytext-color)">2000</h1>
+            </div>
+          </div>
+          <div class="text-caption text-(--primarytext-color)">ОТлтчно ырваирвиыарао ыраирвыиаврыа ывавыа</div>
+          <form class="form lg:p-0 md:p-0" name="add-expense">
+            <label class="flex flex-col gap-1">
+              <span class="text-caption text-(--secondarytext-color) px-3">Введите трату</span>
+              <input
+              id="expense-input"
+              placeholder="0 Р"
+              type="number"
+              name="expense"
+              required
+              class="text-body input input--primary"
+              >
+            </label>
+          </form>
+        </div>
+
+        <div id="history-page" class="hidden">
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+              <h1 class="text-body m-0 text-(--secondarytext-color)">История расходов</h1>
+              <div class="text-caption text-(--primary-color)">Средние траты в день: </div>
+            </div>
+            <ul class="list">
+              <li class="list-item">
+                <span class="list-item-sum">200 ₽</span>
+                <span class="list-item-date">25 октября</span>
+              </li>
+              <li class="list-item">
+                <span class="list-item-sum">300 ₽</span>
+                <span class="list-item-date">25 октября</span>
+              </li>
+              <li class="list-item">
+                <span class="list-item-sum">500 ₽</span>
+                <span class="list-item-date">25 октября</span>
+              </li>
+            </ul>
+          </div>
+              <button id="view-all-history-btn" class="button button--not-color">Смотреть всю историю</button>
+              <button id="back-from-history-btn" class="button button--not-color hidden">Вернуться</button>
+        </div>
+      </section>
+
+        <section id="edit-page" class="">
+            <form name="edit-form" class="form">
+              <div class="balance gap-3 md:p-0 lg:p-0">
+                <div class="flex flex-row justify-between">
+                  <div class="text-body m-0 text-(--secondarytext-color)">Общий баланс</div>
+                  <div class="text-body m-0 text-(--primary-color)">2000 р в день</div>
+                </div>
+                <div class="hidden flex-row items-center justify-start gap-2 md:flex lg:flex">
+                  <h2 class="text-h2 m-0 text-(--primarytext-color)">9000 р</h2>
+                  <span class="text-body m-0 text-(--secondarytext-color)">на 5 дней</span>
+                </div>
+              </div>
+              <div class="form md:p-0 lg:p-0">
+                <label class="flex flex-col gap-1 md:hidden lg:hidden">
+                  <span class="text-caption text-(--secondarytext-color) px-3">Ваш баланс</span>
+                  <input
+                  id="edit-balance-input"
+                  type="number"
+                  class="text-body input input--primary"
+                  name="edit-balance"
+                  required
+                  >
+                </label>
+              <!-- <span class="start-balance-input-error form-input-error"></span> -->
+                <label class="flex flex-col gap-1">
+                  <span class="text-caption text-(--secondarytext-color) px-3">Пополнить</span>
+                  <input
+                  id="deposit-balance-input"
+                  placeholder="+0 Р"
+                  type="number"
+                  class="text-body input input--primary"
+                  name="deposit-balance"
+                  required
+                  >
+                </label>
+              <!-- <span class="start-balance-input-error form-input-error"></span> -->
+                <label class="flex flex-col gap-1">
+                  <span class="text-caption text-(--secondarytext-color) px-3">На срок</span>
+                  <div class="relative w-full">
+                    <input
+                    id="time-limit-edit-input"
+                    type="text"
+                    class="text-body input placeholder:text(--secondarytext-color) cursor-pointer"
+                    name="time-limit"
+                    required
+                    >
+                    <svg class="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="18" height="10" viewBox="0 0 18 10" fill="none">
+                      <path d="M0.75 0.75L8.75 8.75L16.75 0.75" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </label>
+            <!-- <span class="time-limit-input-error form-input-error"></span> -->
+                <div class="flex flex-col gap-5 mt-auto">
+                  <button class="button button--not-color text-body-accent mt-auto md:hidden">Вернуться без сохранения</button>
+                  <button type="submit" form="edit-form" class="button button--color text-body-accent mt-auto">Сохранить</button>
+                </div>
+              </div>
+            </form>
+        </section>
+    </div>
   </body>
 </html>
+

@@ -1,0 +1,21 @@
+@layer components {
+#main-page {
+    @apply w-full h-screen flex flex-col justify-start gap-6 bg-white px-4 py-6;
+    @apply md:bg-(--background-color) md:px-22 md:items-center md:justify-center md:py-0 md:gap-2;
+    @apply lg:px-0 lg:justify-start md:py-16;
+  }
+
+  .balance {
+    @apply w-full flex flex-col gap-4 md:max-w-[524px] md:bg-white md:px-6 md:py-6 md:rounded-[16px] md:h-auto;
+    @apply lg:max-w-[558px]
+  }
+
+  .available-sum {
+  @apply w-full flex flex-col gap-3;
+  @apply md:max-w-[524px] md:bg-white md:px-6 md:py-6 md:rounded-[16px] md:h-auto lg:max-w-[558px];
+}
+
+  #history-page {
+    @apply w-full flex flex-col gap-6 md:max-w-[524px] md:bg-white md:px-6 md:py-6 md:rounded-[16px];
+  }
+}

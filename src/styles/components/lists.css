@@ -1,0 +1,17 @@
+@layer components {
+  .list {
+    @apply list-none m-0 p-0 w-full flex flex-col gap-1;
+  }
+
+  .list-item {
+    @apply w-full md:min-w-0 flex justify-between items-center border-b border-(--secondarytext-color);
+  }
+
+  .list-item-sum {
+    @apply shrink-0 flex-1 font-sans font-semibold text-[18px] leading-[130%] text-(--primarytext-color);
+  }
+
+  .list-item-date {
+    @apply shrink-0 font-sans font-normal text-[16px] leading-[150%] text-(--secondarytext-color);
+  }
+}

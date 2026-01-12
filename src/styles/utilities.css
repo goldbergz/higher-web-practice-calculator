@@ -1,0 +1,31 @@
+@layer utilities {
+  .text-h1 {
+    @apply font-sans font-bold text-[32px] leading-[120%];
+  }
+
+  .text-h2 {
+    @apply font-sans font-semibold text-[24px] leading-[120%];
+  }
+
+  .text-h3 {
+    @apply font-sans font-semibold text-[18px] leading-[130%];
+  }
+
+  .text-body {
+    @apply font-sans font-normal text-[16px] leading-[150%];
+  }
+
+  .text-body-accent {
+    @apply font-sans font-medium text-[16px] leading-[150%];
+  }
+
+  .text-caption {
+    @apply font-sans font-normal text-[12px] leading-[140%];
+  }
+
+  .text-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    line-height: 140%;
+  }
+}
