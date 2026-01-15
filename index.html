@@ -47,7 +47,7 @@
         </form>
       </section>
 
-      <section id="main-page" class="page hidden">
+      <section id="main-page" class="hidden">
         <div class="balance">
           <div class="flex flex-col gap-0.5">
             <div class="balance__header flex flex-row justify-between">
@@ -55,12 +55,12 @@
               <div class="text-body m-0 text-(--primary-color)">2000 р в день</div>
             </div>
             <div class="balance__main-content flex flex-row items-center justify-start gap-2">
-              <h2 class="text-h2 m-0 text-(--primarytext-color)">9000 р</h2>
+              <h2 class="text-h2 m-0 text-(--primarytext-color)"></h2>
               <span class="text-body m-0 text-(--secondarytext-color)">на 5 дней</span>
             </div>
           </div>
           <div class="balance__buttons flex flex-row justify-between gap-4">
-            <button class="button text-body-accent button--not-color">Изменить</button>
+            <button class="button button-edit text-body-accent button--not-color">Изменить</button>
             <button class="button-history button text-body-accent button--not-color">История расходов</button>
           </div>
         </div>
@@ -88,37 +88,38 @@
               >
             </label>
             <span id="expense-error" class="form-input-error text-caption"></span>
-            <button type="submit" form="start-form" class="button button--color text-body-accent mt-auto">Добавить</button>
+            <button type="submit" form="add-expense" class="button button--color text-body-accent mt-auto">Сохранить</button>
           </form>
         </div>
 
-        <div id="history-page" class="hidden">
+        <div id="history-block" class="hidden md:block">
           <div class="flex flex-col gap-4">
             <div class="flex flex-col gap-1">
               <h1 class="text-body m-0 text-(--secondarytext-color)">История расходов</h1>
               <div class="text-caption text-(--primary-color)">Средние траты в день: </div>
             </div>
-            <ul class="list">
-              <li class="list-item">
-                <span class="list-item-sum">200 ₽</span>
-                <span class="list-item-date">25 октября</span>
-              </li>
-              <li class="list-item">
-                <span class="list-item-sum">300 ₽</span>
-                <span class="list-item-date">25 октября</span>
-              </li>
-              <li class="list-item">
-                <span class="list-item-sum">500 ₽</span>
-                <span class="list-item-date">25 октября</span>
-              </li>
+            <ul id="history-block-list" class="list">
+              
             </ul>
           </div>
               <button id="view-all-history-btn" class="button button--not-color">Смотреть всю историю</button>
-              <button id="back-from-history-btn" class="button button--not-color hidden">Вернуться</button>
         </div>
       </section>
 
-        <section id="edit-page" class="">
+      <section id="history-page" class="hidden">
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+              <h1 class="text-body m-0 text-(--secondarytext-color)">История расходов</h1>
+              <div class="text-caption text-(--primary-color)">Средние траты в день: </div>
+            </div>
+            <ul id="history-page-list" class="list">
+              
+            </ul>
+          </div>
+              <button id="back-from-history-btn" class="button button--not-color">Вернуться</button>
+        </section>
+
+        <section id="edit-page" class="hidden">
             <form id="edit-form" name="edit-form" class="form">
               <div class="balance gap-3 md:p-0 lg:p-0">
                 <div class="flex flex-row justify-between">
@@ -131,16 +132,16 @@
                 </div>
               </div>
               <div class="form md:p-0 lg:p-0">
-                <!-- <label class="flex flex-col gap-1 md:hidden lg:hidden">
+                <label class="flex flex-col gap-1 md:hidden lg:hidden">
                   <span class="text-caption text-(--secondarytext-color) px-3">Ваш баланс</span>
                   <input
                   id="edit-balance-input"
                   type="number"
                   class="text-body input input--primary"
                   name="edit-balance"
-                  required
+                  placeholder="9000 Р"
                   >
-                </label> -->
+                </label>
               <!-- <span class="start-balance-input-error form-input-error text-caption"></span> -->
                 <label class="flex flex-col gap-1">
                   <span class="text-caption text-(--secondarytext-color) px-3">Пополнить</span>
@@ -171,7 +172,7 @@
                 </label>
             <span id="edit-date-error" class="form-input-error text-caption"></span>
                 <div class="flex flex-col gap-5 mt-auto">
-                  <button class="button button--not-color text-body-accent mt-auto md:hidden">Вернуться без сохранения</button>
+                  <button class="button button-return button--not-color text-body-accent mt-auto">Вернуться без сохранения</button>
                   <button type="submit" form="edit-form" class="button button--color text-body-accent mt-auto">Сохранить</button>
                 </div>
               </div>

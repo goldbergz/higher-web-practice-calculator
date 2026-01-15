@@ -29,4 +29,3 @@ export function initApp(): void {
 
   router.init();
 }
-

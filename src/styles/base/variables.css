@@ -1,11 +1,11 @@
 @theme {
-  --primary-color: #3B82F6;
-  --success-color: #10B981;
-  --error-color: #EF4444;
+  --primary-color: #3b82f6;
+  --success-color: #10b981;
+  --error-color: #ef4444;
   --primarytext-color: #111827;
-  --secondarytext-color: #6B7280;
-  --background-color: #F9FAFB;
-  --border-color: #E5E7EB;
+  --secondarytext-color: #6b7280;
+  --background-color: #f9fafb;
+  --border-color: #e5e7eb;
 }
 
 @layer base {

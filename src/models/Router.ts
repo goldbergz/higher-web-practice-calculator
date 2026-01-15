@@ -12,7 +12,7 @@ export class Router {
   private currentPage: Page | null = null;
 
   constructor() {
-    window.addEventListener('popstate', (event) => {
+    window.addEventListener('popstate', event => {
       const route = event.state?.route as RouteName | undefined;
       if (route) {
         this.open(route, false);
@@ -46,9 +46,7 @@ export class Router {
   init(): void {
     const currentPath = window.location.pathname;
 
-    const matched = [...this.routes.entries()].find(
-      ([, config]) => config.path === currentPath
-    );
+    const matched = [...this.routes.entries()].find(([, config]) => config.path === currentPath);
 
     if (matched) {
       this.open(matched[0], false);

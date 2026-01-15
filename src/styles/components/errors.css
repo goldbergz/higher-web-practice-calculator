@@ -1,5 +1,5 @@
 @layer components {
-.form-input-error {
- @apply text-(--error-color) px-3;
-}
+  .form-input-error {
+    @apply text-(--error-color) px-3;
+  }
 }

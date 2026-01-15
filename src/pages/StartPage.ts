@@ -3,6 +3,7 @@ import { Router } from '../models/Router';
 import { Budget } from '../models/ZodSchema';
 import { BudgetValidator } from '../services/BudgetValidator';
 import { showFormErrors } from '../utils/formErrors';
+import { budgetState } from '../models/BudgetState';
 
 export class StartPage extends Page {
   constructor(private router: Router) {
@@ -10,14 +11,10 @@ export class StartPage extends Page {
   }
   protected onShow(): void {
     const form = document.getElementById('start-form') as HTMLFormElement;
-    const balanceInput = document.getElementById(
-      'start-balance-input'
-    ) as HTMLInputElement;
-    const dateInput = document.getElementById(
-      'time-limit-input'
-    ) as HTMLInputElement;
+    const balanceInput = document.getElementById('start-balance-input') as HTMLInputElement;
+    const dateInput = document.getElementById('time-limit-input') as HTMLInputElement;
 
-    form.onsubmit = (e) => {
+    form.onsubmit = e => {
       e.preventDefault();
 
       const data: Budget = {
@@ -32,9 +29,12 @@ export class StartPage extends Page {
         return;
       }
 
+      budgetState.setBudget(
+        Number(balanceInput.value),
+        new Date(dateInput.value.split('.').reverse().join('-'))
+      );
       // IndexedDB
       this.router.navigate('main');
     };
   }
-
 }

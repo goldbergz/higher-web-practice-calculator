@@ -11,14 +11,14 @@ export class EditPage extends Page {
 
   protected onShow(): void {
     const form = document.getElementById('edit-form') as HTMLFormElement;
-    const balanceInput = document.getElementById(
-      'deposit-balance-input'
-    ) as HTMLInputElement;
-    const dateInput = document.getElementById(
-      'time-limit-edit-input'
-    ) as HTMLInputElement;
+    const balanceInput = document.getElementById('deposit-balance-input') as HTMLInputElement;
+    const dateInput = document.getElementById('time-limit-edit-input') as HTMLInputElement;
 
-    form.onsubmit = (e) => {
+    document.querySelector('.button-return')?.addEventListener('click', () => {
+      this.router.navigate('main');
+    });
+
+    form.onsubmit = e => {
       e.preventDefault();
 
       const data: Budget = {
@@ -32,7 +32,7 @@ export class EditPage extends Page {
         showFormErrors(result.error, 'edit');
         return;
       }
-            // IndexedDB
+      // IndexedDB
 
       this.router.navigate('main');
     };

@@ -1,12 +1,11 @@
 import { ZodError } from 'zod';
 
 export function showFormErrors(error: ZodError, prefix: string) {
-
   document
     .querySelectorAll(`#${prefix}-page .form-input-error`)
-    .forEach((el) => (el.textContent = ''));
+    .forEach(el => (el.textContent = ''));
 
-  error.issues.forEach((issue) => {
+  error.issues.forEach(issue => {
     const field = issue.path[0];
     let el: HTMLElement | null = null;
 
