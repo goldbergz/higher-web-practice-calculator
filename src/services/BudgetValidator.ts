@@ -1,5 +1,5 @@
-import { BudgetSchema } from '../models/ZodSchema';
-import { ExpenseSchema } from '../models/ZodSchema';
+import { BudgetSchema } from '../utils/ZodSchema';
+import { ExpenseSchema } from '../utils/ZodSchema';
 
 export class BudgetValidator {
   static validate(data: unknown) {

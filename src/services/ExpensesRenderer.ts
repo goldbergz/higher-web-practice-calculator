@@ -1,4 +1,4 @@
-import { Expense } from '../models/ZodSchema';
+import { Expense } from '../utils/ZodSchema';
 
 export function renderExpensesList(list: HTMLUListElement | null, expenses: Expense[]): void {
   if (!list) return;

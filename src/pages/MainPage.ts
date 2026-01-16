@@ -1,7 +1,7 @@
 import { Page } from '../components/Page';
 import { Router } from '../models/Router';
 import { ExpenseValidator } from '../services/BudgetValidator';
-import { showFormErrors } from '../utils/formErrors';
+import { showFormErrors } from '../services/formErrors';
 import { budgetState } from '../models/BudgetState';
 import { BudgetSelectors } from '../services/BudgetSelectors';
 import { renderExpensesList } from '../services/ExpensesRenderer';
@@ -21,6 +21,7 @@ export class MainPage extends Page {
     const todayAvailableElement = document.getElementById('available-sum') as HTMLElement;
     const dailyAmountElement = document.getElementById('daily-amount') as HTMLElement;
     const dailyAvailableElement = document.getElementById('available-daily-sum') as HTMLElement;
+    const todayAverageElement = document.getElementById('avarage-expense-main') as HTMLElement;
 
     const blockList = document.getElementById('history-block-list') as HTMLUListElement | null;
 
@@ -37,13 +38,15 @@ export class MainPage extends Page {
       todayAvailableElement.textContent = `${BudgetSelectors.todayAvailable(state)} ₽`;
       dailyAmountElement.textContent = `${state.dailyAmount} ₽ в день`;
       dailyAvailableElement.textContent = `${state.dailyAmount} ₽`;
+      todayAverageElement.textContent = `Средние траты в день: ${BudgetSelectors.averageTodayExpense(state)} ₽`;
 
       renderExpenses();
     };
 
     render();
     this.unsubscribe = budgetState.subscribe(render);
-    form.onsubmit = e => {
+
+    form.onsubmit = async e => {
       e.preventDefault();
       const expense = {
         amount: Number(expenseInput.value),
@@ -57,7 +60,7 @@ export class MainPage extends Page {
         showFormErrors(result.error, 'main');
         return;
       }
-      budgetState.addExpense(expense);
+      await budgetState.addExpense(expense);
       expenseInput.value = '';
     };
 

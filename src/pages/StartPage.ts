@@ -1,8 +1,8 @@
 import { Page } from '../components/Page';
 import { Router } from '../models/Router';
-import { Budget } from '../models/ZodSchema';
+import { Budget } from '../utils/ZodSchema';
 import { BudgetValidator } from '../services/BudgetValidator';
-import { showFormErrors } from '../utils/formErrors';
+import { showFormErrors } from '../services/formErrors';
 import { budgetState } from '../models/BudgetState';
 
 export class StartPage extends Page {
@@ -14,7 +14,7 @@ export class StartPage extends Page {
     const balanceInput = document.getElementById('start-balance-input') as HTMLInputElement;
     const dateInput = document.getElementById('time-limit-input') as HTMLInputElement;
 
-    form.onsubmit = e => {
+    form.onsubmit = async e => {
       e.preventDefault();
 
       const data: Budget = {
@@ -29,11 +29,10 @@ export class StartPage extends Page {
         return;
       }
 
-      budgetState.setBudget(
+      await budgetState.setBudget(
         Number(balanceInput.value),
         new Date(dateInput.value.split('.').reverse().join('-'))
       );
-      // IndexedDB
       this.router.navigate('main');
     };
   }

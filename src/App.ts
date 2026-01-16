@@ -6,8 +6,9 @@ import { StartPage } from './pages/StartPage';
 import { MainPage } from './pages/MainPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { EditPage } from './pages/EditPage';
+import { budgetState } from './models/BudgetState';
 
-export function initApp(): void {
+export async function initApp(): Promise<void> {
   const router = new Router();
 
   router.register('start', new StartPage(router), '/');
@@ -27,5 +28,14 @@ export function initApp(): void {
     clickOpens: true,
   });
 
+  await budgetState.init();
+  const state = budgetState.getState();
+  const hasBudget = state.initialBalance > 0 && state.endDate !== null;
+
+  if (hasBudget) {
+    router.navigate('main');
+  } else {
+    router.navigate('start');
+  }
   router.init();
 }

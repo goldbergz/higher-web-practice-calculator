@@ -1,4 +1,5 @@
 import { AppState } from '../models/BudgetState';
+import { Expense } from '../utils/ZodSchema';
 
 const DAY = 86400000;
 
@@ -46,5 +47,22 @@ export const BudgetSelectors = {
       .reduce((sum, e) => sum + e.amount, 0);
 
     return state.dailyAmount - spentToday;
+  },
+
+  todayExpenses(state: AppState): Expense[] {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return state.expenses.filter(expense => {
+      const expenseDate = new Date(expense.date);
+      expenseDate.setHours(0, 0, 0, 0);
+      return expenseDate.getTime() === today.getTime();
+    });
+  },
+
+  averageTodayExpense(state: AppState): number {
+    const expenses = BudgetSelectors.todayExpenses(state);
+    if (expenses.length === 0) return 0;
+    const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+    return Math.floor(total / expenses.length);
   },
 };
