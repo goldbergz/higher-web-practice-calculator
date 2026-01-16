@@ -18,7 +18,9 @@ export class MainPage extends Page {
 
     const totalBalanceElement = document.querySelector('.balance__main-content h2') as HTMLElement;
     const daysInfoElement = document.querySelector('.balance__main-content span') as HTMLElement;
-    const todayAvailableElement = document.querySelector('.available-sum__money h1') as HTMLElement;
+    const todayAvailableElement = document.getElementById('available-sum') as HTMLElement;
+    const dailyAmountElement = document.getElementById('daily-amount') as HTMLElement;
+    const dailyAvailableElement = document.getElementById('available-daily-sum') as HTMLElement;
 
     const blockList = document.getElementById('history-block-list') as HTMLUListElement | null;
 
@@ -30,9 +32,11 @@ export class MainPage extends Page {
 
     const render = () => {
       const state = budgetState.getState();
-      totalBalanceElement.textContent = `${BudgetSelectors.remainingBalance(state)} ₽`;
+      totalBalanceElement.textContent = `${state.initialBalance} ₽`;
       daysInfoElement.textContent = `на ${BudgetSelectors.daysLeft(state)} дней`;
-      todayAvailableElement.textContent = `${BudgetSelectors.perDayLimit(state)} ₽`;
+      todayAvailableElement.textContent = `${BudgetSelectors.todayAvailable(state)} ₽`;
+      dailyAmountElement.textContent = `${state.dailyAmount} ₽ в день`;
+      dailyAvailableElement.textContent = `${state.dailyAmount} ₽`;
 
       renderExpenses();
     };
@@ -41,7 +45,10 @@ export class MainPage extends Page {
     this.unsubscribe = budgetState.subscribe(render);
     form.onsubmit = e => {
       e.preventDefault();
-      const expense = { amount: Number(expenseInput.value) };
+      const expense = {
+        amount: Number(expenseInput.value),
+        date: new Date(),
+      };
       console.log(expense);
 
       const result = ExpenseValidator.validate(expense);

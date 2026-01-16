@@ -17,6 +17,7 @@ export const BudgetSchema = z.object({
 
 export const ExpenseSchema = z.object({
   amount: z.number().positive({ message: 'Введите сумму больше 0' }),
+  date: z.date(),
 });
 
 export type Budget = z.infer<typeof BudgetSchema>;

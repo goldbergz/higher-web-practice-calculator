@@ -52,7 +52,7 @@
           <div class="flex flex-col gap-0.5">
             <div class="balance__header flex flex-row justify-between">
               <div class="text-body m-0 text-(--secondarytext-color)">Общий баланс</div>
-              <div class="text-body m-0 text-(--primary-color)">2000 р в день</div>
+              <div id="daily-amount" class="text-body m-0 text-(--primary-color)"></div>
             </div>
             <div class="balance__main-content flex flex-row items-center justify-start gap-2">
               <h2 class="text-h2 m-0 text-(--primarytext-color)"></h2>
@@ -69,9 +69,9 @@
           <div>
             <div class="text-body-accent text-(--secondarytext-color)">На сегодня доступно</div>
             <div class="available-sum__money flex flex-row gap-1">
-              <h1 class="text-h1 m-0 text-(--success-color)">1000 Р</h1>
+              <h1 id="available-sum" class="text-h1 m-0 text-(--success-color)"></h1>
               <h1 class="text-h1 m-0 text-(--secondarytext-color)">/</h1>
-              <h1 class="text-h1 m-0 text-(--secondarytext-color)">2000</h1>
+              <h1 id="available-daily-sum" class="text-h1 m-0 text-(--secondarytext-color)"></h1>
             </div>
           </div>
           <div class="text-caption text-(--primarytext-color)">ОТлтчно ырваирвиыарао ыраирвыиаврыа ывавыа</div>
@@ -124,11 +124,11 @@
               <div class="balance gap-3 md:p-0 lg:p-0">
                 <div class="flex flex-row justify-between">
                   <div class="text-body m-0 text-(--secondarytext-color)">Общий баланс</div>
-                  <div class="text-body m-0 text-(--primary-color)">2000 р в день</div>
+                  <div id="daily-amount-edit" class="text-body m-0 text-(--primary-color)">2000 р в день</div>
                 </div>
                 <div class="hidden flex-row items-center justify-start gap-2 md:flex lg:flex">
-                  <h2 class="text-h2 m-0 text-(--primarytext-color)">9000 р</h2>
-                  <span class="text-body m-0 text-(--secondarytext-color)">на 5 дней</span>
+                  <h2 id="edit-balance-info" class="text-h2 m-0 text-(--primarytext-color)"></h2>
+                  <span id="edit-days-info" class="text-body m-0 text-(--secondarytext-color)">на 5 дней</span>
                 </div>
               </div>
               <div class="form md:p-0 lg:p-0">

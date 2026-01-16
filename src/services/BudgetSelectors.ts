@@ -29,4 +29,22 @@ export const BudgetSelectors = {
 
     return Math.floor(this.remainingBalance(state) / days);
   },
+
+  dailyAvailable(state: AppState): number {
+    return state.dailyAmount;
+  },
+  todayAvailable(state: AppState): number {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const spentToday = state.expenses
+      .filter(e => {
+        const d = new Date(e.date);
+        d.setHours(0, 0, 0, 0);
+        return d.getTime() === today.getTime();
+      })
+      .reduce((sum, e) => sum + e.amount, 0);
+
+    return state.dailyAmount - spentToday;
+  },
 };
