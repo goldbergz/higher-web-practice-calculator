@@ -28,4 +28,9 @@ export class BudgetRepository {
     const db = await dbPromise;
     return db.clear(EXPENSE_STORE);
   }
+
+  async deleteExpense(id: number) {
+    const db = await dbPromise;
+    return db.delete(EXPENSE_STORE, id);
+  }
 }

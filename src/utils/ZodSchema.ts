@@ -21,8 +21,6 @@ export const ExpenseSchema = z.object({
 });
 
 export type Budget = z.infer<typeof BudgetSchema>;
-export type Expense = z.infer<typeof ExpenseSchema>;
-// export type Expense = {
-//   amount: number;
-//   date: Date;
-// };
+export type Expense = z.infer<typeof ExpenseSchema> & {
+  id?: number;
+};

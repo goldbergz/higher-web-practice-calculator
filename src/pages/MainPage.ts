@@ -27,8 +27,8 @@ export class MainPage extends Page {
 
     const renderExpenses = () => {
       const { expenses } = budgetState.getState();
-      console.log(expenses);
-      renderExpensesList(blockList, expenses);
+      const lastThreeExpenses = expenses.slice(-3).reverse();
+      renderExpensesList(blockList, lastThreeExpenses);
     };
 
     const render = () => {

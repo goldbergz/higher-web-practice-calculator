@@ -79,7 +79,7 @@ class BudgetState extends State<AppState> {
     console.log('IDB expense id:', id);
 
     this.setState(state => ({
-      expenses: [...state.expenses, expense],
+      expenses: [...state.expenses, { ...expense, id }],
     }));
   }
 
@@ -90,6 +90,14 @@ class BudgetState extends State<AppState> {
   getRemainingBalance(): number {
     const { initialBalance } = this.getState();
     return initialBalance - this.getTotalExpenses();
+  }
+
+  async deleteExpense(id: number): Promise<void> {
+    await this.repo.deleteExpense(id);
+
+    this.setState(state => ({
+      expenses: state.expenses.filter(e => e.id !== id),
+    }));
   }
 }
 

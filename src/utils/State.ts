@@ -24,4 +24,12 @@ export class State<T> {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
   }
+
+  async removeExpense(id: number): Promise<void> {
+    await this.repo.deleteExpense(id);
+
+    this.setState(state => ({
+      expenses: state.expenses.filter(e => e.id !== id),
+    }));
+  }
 }

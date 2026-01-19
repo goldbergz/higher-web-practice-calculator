@@ -14,4 +14,8 @@
   .list-item-date {
     @apply shrink-0 font-sans font-normal text-[16px] leading-[150%] text-(--secondarytext-color);
   }
+
+  .list-item-remove {
+    @apply w-3 h-3 cursor-pointer ml-auto text-(--secondarytext-color) opacity-60 hover:opacity-100;
+  }
 }
