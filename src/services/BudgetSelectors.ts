@@ -65,4 +65,17 @@ export const BudgetSelectors = {
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
     return Math.floor(total / expenses.length);
   },
+
+  adjustedDailyAvailable(state: AppState): number {
+    const todayAvailable = this.todayAvailable(state);
+    const dailyAvailable = this.dailyAvailable(state);
+    return todayAvailable < 0 ? Math.max(dailyAvailable + todayAvailable, 0) : dailyAvailable;
+  },
+
+  dailyFeedback(state: AppState): string {
+    const todayAvailable = this.todayAvailable(state);
+    return todayAvailable > 0
+      ? '🎉 Отлично справились — сегодня вы в пределах лимита!'
+      : 'К сожалению, сегодня не получилось вписаться в лимит.';
+  },
 };

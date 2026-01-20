@@ -22,6 +22,7 @@ export class MainPage extends Page {
     const dailyAmountElement = document.getElementById('daily-amount') as HTMLElement;
     const dailyAvailableElement = document.getElementById('available-daily-sum') as HTMLElement;
     const todayAverageElement = document.getElementById('avarage-expense-main') as HTMLElement;
+    const feedbackElement = document.getElementById('daily-feedback') as HTMLElement;
 
     const blockList = document.getElementById('history-block-list') as HTMLUListElement | null;
 
@@ -37,14 +38,18 @@ export class MainPage extends Page {
       daysInfoElement.textContent = `на ${BudgetSelectors.daysLeft(state)} дней`;
       todayAvailableElement.textContent = `${BudgetSelectors.todayAvailable(state)} ₽`;
       dailyAmountElement.textContent = `${state.dailyAmount} ₽ в день`;
-      dailyAvailableElement.textContent = `${state.dailyAmount} ₽`;
+      dailyAvailableElement.textContent = `${BudgetSelectors.adjustedDailyAvailable(state)} ₽`;
       todayAverageElement.textContent = `Средние траты в день: ${BudgetSelectors.averageTodayExpense(state)} ₽`;
+      feedbackElement.textContent = BudgetSelectors.dailyFeedback(state);
 
       renderExpenses();
     };
 
     render();
     this.unsubscribe = budgetState.subscribe(render);
+    expenseInput.addEventListener('input', () => {
+      document.getElementById('expense-error')!.textContent = '';
+    });
 
     form.onsubmit = async e => {
       e.preventDefault();
@@ -52,10 +57,8 @@ export class MainPage extends Page {
         amount: Number(expenseInput.value),
         date: new Date(),
       };
-      console.log(expense);
 
       const result = ExpenseValidator.validate(expense);
-      console.log(result);
       if (!result.success) {
         showFormErrors(result.error, 'main');
         return;

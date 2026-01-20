@@ -21,6 +21,8 @@
             type="number"
             class="text-body input input--primary"
             name="start-balance"
+            inputmode="numeric"
+  pattern="[0-9]*"
             required
             >
           </label>
@@ -74,17 +76,19 @@
               <h1 id="available-daily-sum" class="text-h1 m-0 text-(--secondarytext-color)"></h1>
             </div>
           </div>
-          <div class="text-caption text-(--primarytext-color)">ОТлтчно ырваирвиыарао ыраирвыиаврыа ывавыа</div>
+          <div id="daily-feedback" class="text-caption text-(--primarytext-color)"></div>
           <form id="add-expense" class="form lg:p-0 md:p-0" name="add-expense">
             <label class="flex flex-col gap-1">
               <span class="text-caption text-(--secondarytext-color) px-3">Введите трату</span>
               <input
               id="expense-input"
-              placeholder="0 Р"
+              placeholder="0 ₽"
               type="number"
               name="expense"
               required
               class="text-body input input--primary"
+              inputmode="numeric"
+  pattern="[0-9]*"
               >
             </label>
             <span id="expense-error" class="form-input-error text-caption"></span>
@@ -99,7 +103,6 @@
               <div id="avarage-expense-main" class="text-caption text-(--primary-color)">Средние траты в день: </div>
             </div>
             <ul id="history-block-list" class="list">
-              
             </ul>
           </div>
               <button id="view-all-history-btn" class="button button--not-color">Смотреть всю историю</button>
@@ -107,23 +110,25 @@
       </section>
 
       <section id="history-page" class="hidden">
+        <div class="history-page-block">
           <div class="flex flex-col gap-4">
             <div class="flex flex-col gap-1">
-              <h1 class="text-body m-0 text-(--secondarytext-color)">История расходов</h1>
+              <h1 class="text-h2 m-0 text-(--primarytext-color)">История расходов</h1>
               <div id="avarage-expense-history" class="text-caption text-(--primary-color)">Средние траты в день: </div>
             </div>
             <ul id="history-page-list" class="list">
               
             </ul>
           </div>
-              <button id="back-from-history-btn" class="button button--not-color">Вернуться</button>
+              <button id="back-from-history-btn" class="button button--not-color mt-auto">Вернуться</button>
+              </div>
         </section>
 
         <section id="edit-page" class="hidden">
             <form id="edit-form" name="edit-form" class="form">
               <div class="balance gap-3 md:p-0 lg:p-0">
                 <div class="flex flex-row justify-between">
-                  <div class="text-body m-0 text-(--secondarytext-color)">Общий баланс</div>
+                  <div class="text-h2 m-0 text-(--primarytext-color)">Общий баланс</div>
                   <div id="daily-amount-edit" class="text-body m-0 text-(--primary-color)">2000 р в день</div>
                 </div>
                 <div class="hidden flex-row items-center justify-start gap-2 md:flex lg:flex">
@@ -139,18 +144,19 @@
                   type="number"
                   class="text-body input input--primary"
                   name="edit-balance"
-                  placeholder="9000 Р"
+                  disabled
                   >
                 </label>
-              <!-- <span class="start-balance-input-error form-input-error text-caption"></span> -->
                 <label class="flex flex-col gap-1">
                   <span class="text-caption text-(--secondarytext-color) px-3">Пополнить</span>
                   <input
                   id="deposit-balance-input"
-                  placeholder="+0 Р"
+                  placeholder="+0 ₽"
                   type="number"
                   class="text-body input input--primary"
                   name="deposit-balance"
+                  inputmode="numeric"
+  pattern="[0-9]*"
                   required
                   >
                 </label>

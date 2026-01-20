@@ -14,6 +14,14 @@ export class StartPage extends Page {
     const balanceInput = document.getElementById('start-balance-input') as HTMLInputElement;
     const dateInput = document.getElementById('time-limit-input') as HTMLInputElement;
 
+    balanceInput.addEventListener('input', () => {
+      document.getElementById('start-balance-input')!.textContent = '';
+    });
+
+    dateInput.addEventListener('input', () => {
+      document.getElementById('time-limit-input')!.textContent = '';
+    });
+
     form.onsubmit = async e => {
       e.preventDefault();
 

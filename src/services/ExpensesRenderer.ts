@@ -17,28 +17,26 @@ export function renderExpensesList(
 
   expenses.forEach(exp => {
     const li = document.createElement('li');
-    li.className = 'list-item';
+    li.className =
+      'w-full flex flex-row justify-between items-center border-b border-(--secondarytext-color)';
+
+    const leftSection = document.createElement('div');
+    leftSection.className = 'list-item-left';
 
     const sum = document.createElement('span');
     sum.className = 'list-item-sum';
     sum.textContent = `${exp.amount} ₽`;
 
+    leftSection.appendChild(sum);
+
+    const rightSection = document.createElement('div');
+    rightSection.className = 'list-item-right';
+
     const date = document.createElement('span');
     date.className = 'list-item-date';
     date.textContent = today;
 
-    const removeBtn = document.createElement('img');
-    removeBtn.src = '/assets/cross.svg';
-    removeBtn.className = 'list-item-remove';
-    removeBtn.alt = 'Удалить';
-
-    removeBtn.addEventListener('click', () => {
-      if (exp.id !== undefined) {
-        budgetState.deleteExpense(exp.id);
-      }
-    });
-
-    li.append(sum, date);
+    rightSection.appendChild(date);
 
     if (withRemove && exp.id !== undefined) {
       const removeBtn = document.createElement('img');
@@ -50,8 +48,10 @@ export function renderExpensesList(
         budgetState.deleteExpense(exp.id!);
       });
 
-      li.appendChild(removeBtn);
+      rightSection.appendChild(removeBtn);
     }
+
+    li.append(leftSection, rightSection);
     list.appendChild(li);
   });
 }

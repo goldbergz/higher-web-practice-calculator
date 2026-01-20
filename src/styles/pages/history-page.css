@@ -1,0 +1,13 @@
+@layer components {
+  #history-page {
+    @apply w-full h-screen flex flex-col bg-white px-4 py-6 gap-3;
+    @apply md:bg-(--background-color) md:px-22 md:py-0 md:flex md:items-center md:justify-center gap-0;
+    @apply lg:px-0 lg:justify-start lg:py-16;
+  }
+
+  .history-page-block {
+    @apply w-full flex flex-col gap-6 h-full;
+    @apply md:max-w-[524px] md:bg-white md:px-6 md:py-6 md:rounded-[16px] md:h-auto;
+    @apply lg:max-w-[558px];
+  }
+}

@@ -19,7 +19,8 @@ export class HistoryPage extends Page {
 
     const render = () => {
       const state = budgetState.getState();
-      renderExpensesList(listElement, state.expenses, true);
+      const expensesReversed = state.expenses.slice().reverse();
+      renderExpensesList(listElement, expensesReversed, true);
       todayAverageElement.textContent = `Средние траты в день: ${BudgetSelectors.averageTodayExpense(state)} ₽`;
     };
 
