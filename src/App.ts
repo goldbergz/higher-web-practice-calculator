@@ -6,15 +6,23 @@ import { StartPage } from './pages/StartPage';
 import { MainPage } from './pages/MainPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { EditPage } from './pages/EditPage';
-import { budgetState } from './models/BudgetState';
+import { BudgetService } from './services/budget.service';
+import { BudgetStore } from './models/budget/budget.store';
+import { BudgetRepository } from './services/budget.repository';
 
 export async function initApp(): Promise<void> {
   const router = new Router();
 
-  router.register('start', new StartPage(router), '/');
-  router.register('main', new MainPage(router), '/main');
-  router.register('history', new HistoryPage(router), '/history');
-  router.register('edit', new EditPage(router), '/edit');
+  const budgetStore = new BudgetStore();
+  const budgetRepo = new BudgetRepository();
+  const budgetService = new BudgetService(budgetStore, budgetRepo);
+
+  await budgetService.init();
+
+  router.register('start', new StartPage(router, budgetStore, budgetService), '/');
+  router.register('main', new MainPage(router, budgetStore, budgetService), '/main');
+  router.register('history', new HistoryPage(router, budgetStore, budgetService), '/history');
+  router.register('edit', new EditPage(router, budgetStore, budgetService), '/edit');
 
   flatpickr('#time-limit-input', {
     dateFormat: 'd.m.Y',
@@ -28,9 +36,8 @@ export async function initApp(): Promise<void> {
     clickOpens: true,
   });
 
-  await budgetState.init();
-  const state = budgetState.getState();
-  const hasBudget = state.initialBalance > 0 && state.endDate !== null;
+  const state = budgetStore.getState();
+  const hasBudget = state.budget !== null && state.budget.initialBalance > 0;
 
   if (hasBudget) {
     router.navigate('main');

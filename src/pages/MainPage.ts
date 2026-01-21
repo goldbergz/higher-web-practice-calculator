@@ -1,17 +1,24 @@
 import { Page } from '../components/Page';
 import { Router } from '../models/Router';
-import { ExpenseValidator } from '../services/BudgetValidator';
-import { showFormErrors } from '../services/formErrors';
-import { budgetState } from '../models/BudgetState';
-import { BudgetSelectors } from '../services/BudgetSelectors';
-import { renderExpensesList } from '../services/ExpensesRenderer';
+import { BudgetStore } from '../models/budget/budget.store';
+import { BudgetService } from '../services/budget.service';
+import { Expense } from '../models/expense/expense.types';
+import { ExpenseValidator } from '../services/validation.service';
+import { showFormErrors } from '../services/errors.service';
+import { renderExpensesList } from '../components/ExpenseList';
+import { BudgetSelectors } from '../services/budget.selectors';
 
 export class MainPage extends Page {
   private unsubscribe: (() => void) | null = null;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private store: BudgetStore,
+    private service: BudgetService
+  ) {
     super('main-page');
   }
+
   protected onShow(): void {
     const form = document.getElementById('add-expense') as HTMLFormElement;
     const expenseInput = document.getElementById('expense-input') as HTMLInputElement;
@@ -26,44 +33,39 @@ export class MainPage extends Page {
 
     const blockList = document.getElementById('history-block-list') as HTMLUListElement | null;
 
-    const renderExpenses = () => {
-      const { expenses } = budgetState.getState();
-      const lastThreeExpenses = expenses.slice(-3).reverse();
-      renderExpensesList(blockList, lastThreeExpenses);
-    };
-
     const render = () => {
-      const state = budgetState.getState();
-      totalBalanceElement.textContent = `${state.initialBalance} ₽`;
+      const state = this.store.getState();
+      if (!state.budget) return;
+
+      totalBalanceElement.textContent = `${state.budget.initialBalance} ₽`;
       daysInfoElement.textContent = `на ${BudgetSelectors.daysLeft(state)} дней`;
       todayAvailableElement.textContent = `${BudgetSelectors.todayAvailable(state)} ₽`;
-      dailyAmountElement.textContent = `${state.dailyAmount} ₽ в день`;
+      dailyAmountElement.textContent = `${state.budget.dailyLimit} ₽ в день`;
       dailyAvailableElement.textContent = `${BudgetSelectors.adjustedDailyAvailable(state)} ₽`;
       todayAverageElement.textContent = `Средние траты в день: ${BudgetSelectors.averageTodayExpense(state)} ₽`;
       feedbackElement.textContent = BudgetSelectors.dailyFeedback(state);
 
-      renderExpenses();
+      const lastThree = state.expenses.slice(-3).reverse();
+      renderExpensesList(blockList, lastThree, this.service);
     };
 
     render();
-    this.unsubscribe = budgetState.subscribe(render);
+    this.unsubscribe = this.store.subscribe(render);
+
     expenseInput.addEventListener('input', () => {
       document.getElementById('expense-error')!.textContent = '';
     });
 
     form.onsubmit = async e => {
       e.preventDefault();
-      const expense = {
-        amount: Number(expenseInput.value),
-        date: new Date(),
-      };
-
+      const expense: Expense = { amount: Number(expenseInput.value), date: new Date() };
       const result = ExpenseValidator.validate(expense);
+
       if (!result.success) {
         showFormErrors(result.error, 'main');
         return;
       }
-      await budgetState.addExpense(expense);
+      await this.service.addExpense(expense);
       expenseInput.value = '';
     };
 

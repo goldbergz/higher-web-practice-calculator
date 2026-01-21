@@ -21,6 +21,10 @@ export function showFormErrors(error: ZodError, prefix: string) {
       el = document.getElementById('expense-error');
     }
 
+    if (field === 'deposit') {
+      el = document.getElementById(`${prefix}-balance-error`);
+    }
+
     if (el) el.textContent = issue.message;
   });
 }

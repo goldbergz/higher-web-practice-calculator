@@ -1,15 +1,15 @@
-import { budgetState } from '../models/BudgetState';
-import { Expense } from '../utils/ZodSchema';
+import { BudgetService } from '../services/budget.service';
+import { Expense } from '../models/expense/expense.types';
 
 export function renderExpensesList(
   list: HTMLUListElement | null,
   expenses: Expense[],
+  budgetService: BudgetService,
   withRemove = false
 ): void {
   if (!list) return;
 
   list.innerHTML = '';
-
 
   expenses.forEach(exp => {
     const li = document.createElement('li');
@@ -30,11 +30,11 @@ export function renderExpensesList(
 
     const date = document.createElement('span');
     date.className = 'list-item-date';
-date.textContent = new Date(exp.date).toLocaleDateString('ru-RU', {
+    date.textContent = new Date(exp.date).toLocaleDateString('ru-RU', {
       day: 'numeric',
       month: 'long',
-});
-    
+    });
+
     rightSection.appendChild(date);
 
     if (withRemove && exp.id !== undefined) {
@@ -43,8 +43,8 @@ date.textContent = new Date(exp.date).toLocaleDateString('ru-RU', {
       removeBtn.className = 'list-item-remove';
       removeBtn.alt = 'Удалить';
 
-      removeBtn.addEventListener('click', () => {
-        budgetState.deleteExpense(exp.id!);
+      removeBtn.addEventListener('click', async () => {
+        await budgetService.deleteExpense(exp.id!);
       });
 
       rightSection.appendChild(removeBtn);

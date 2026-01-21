@@ -1,13 +1,18 @@
 import { Page } from '../components/Page';
 import { Router } from '../models/Router';
-import { budgetState } from '../models/BudgetState';
-import { renderExpensesList } from '../services/ExpensesRenderer';
-import { BudgetSelectors } from '../services/BudgetSelectors';
+import { BudgetStore } from '../models/budget/budget.store';
+import { BudgetSelectors } from '../services/budget.selectors';
+import { BudgetService } from '../services/budget.service';
+import { renderExpensesList } from '../components/ExpenseList';
 
 export class HistoryPage extends Page {
   private unsubscribe: (() => void) | null = null;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private store: BudgetStore,
+    private service: BudgetService
+  ) {
     super('history-page');
   }
 
@@ -15,17 +20,15 @@ export class HistoryPage extends Page {
     const listElement = document.querySelector('#history-page .list') as HTMLUListElement | null;
     const todayAverageElement = document.getElementById('avarage-expense-history') as HTMLElement;
 
-    if (!listElement) return;
-
     const render = () => {
-      const state = budgetState.getState();
-      const expensesReversed = state.expenses.slice().reverse();
-      renderExpensesList(listElement, expensesReversed, true);
+      const state = this.store.getState();
+      const expensesReversed = [...state.expenses].reverse();
+      renderExpensesList(listElement, expensesReversed, this.service, true);
       todayAverageElement.textContent = `Средние траты в день: ${BudgetSelectors.averageTodayExpense(state)} ₽`;
     };
 
     render();
-    this.unsubscribe = budgetState.subscribe(render);
+    this.unsubscribe = this.store.subscribe(render);
 
     document.getElementById('back-from-history-btn')?.addEventListener('click', () => {
       this.router.navigate('main');

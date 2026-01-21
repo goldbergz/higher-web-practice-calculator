@@ -1,5 +1,6 @@
-import { dbPromise, BUDGET_STORE, EXPENSE_STORE } from '../utils/IndexedDB';
-import { Budget, Expense } from '../utils/ZodSchema';
+import { dbPromise, BUDGET_STORE, EXPENSE_STORE } from '../utils/db';
+import { Budget } from '../models/budget/budget.types';
+import { Expense } from '../models/expense/expense.types';
 
 const BUDGET_ID = 'main';
 

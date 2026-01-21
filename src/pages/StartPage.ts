@@ -1,14 +1,19 @@
 import { Page } from '../components/Page';
 import { Router } from '../models/Router';
-import { Budget } from '../utils/ZodSchema';
-import { BudgetValidator } from '../services/BudgetValidator';
-import { showFormErrors } from '../services/formErrors';
-import { budgetState } from '../models/BudgetState';
+import { BudgetService } from '../services/budget.service';
+import { BudgetStore } from '../models/budget/budget.store';
+import { showFormErrors } from '../services/errors.service';
+import { BudgetValidator } from '../services/validation.service';
 
 export class StartPage extends Page {
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private store: BudgetStore,
+    private service: BudgetService
+  ) {
     super('start-page');
   }
+
   protected onShow(): void {
     const form = document.getElementById('start-form') as HTMLFormElement;
     const balanceInput = document.getElementById('start-balance-input') as HTMLInputElement;
@@ -25,9 +30,10 @@ export class StartPage extends Page {
     form.onsubmit = async e => {
       e.preventDefault();
 
-      const data: Budget = {
+      const data = {
         initialBalance: Number(balanceInput.value),
         endDate: new Date(dateInput.value.split('.').reverse().join('-')),
+        dailyLimit: 0,
       };
 
       const result = BudgetValidator.validate(data);
@@ -37,10 +43,9 @@ export class StartPage extends Page {
         return;
       }
 
-      await budgetState.setBudget(
-        Number(balanceInput.value),
-        new Date(dateInput.value.split('.').reverse().join('-'))
-      );
+      data.dailyLimit = this.service.calculateDailyLimit(data.initialBalance, data.endDate);
+
+      await this.service.setBudget(data);
       this.router.navigate('main');
     };
   }

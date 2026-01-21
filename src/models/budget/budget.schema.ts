@@ -20,18 +20,9 @@ export const BudgetSchema = z.object({
       { message: 'Дата должна быть позже сегодняшнего дня' }
     )
   ),
-});
-
-export const ExpenseSchema = z.object({
-  amount: z.number().positive({ message: 'Введите сумму больше 0' }),
-  date: z.date(),
+  dailyLimit: z.number().nonnegative(),
 });
 
 export const DepositSchema = z.object({
   deposit: z.number().positive({ message: 'Введите сумму больше 0' }),
 });
-
-export type Budget = z.infer<typeof BudgetSchema>;
-export type Expense = z.infer<typeof ExpenseSchema> & {
-  id?: number;
-};
