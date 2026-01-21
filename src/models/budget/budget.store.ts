@@ -1,6 +1,7 @@
 import { State } from '../../utils/State';
-import { BudgetState, Budget } from './budget.types';
 import { Expense } from '../expense/expense.types';
+
+import { BudgetState, Budget } from './budget.types';
 
 const initialState: BudgetState = {
   budget: null,

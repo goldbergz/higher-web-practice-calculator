@@ -1,5 +1,5 @@
-import { BudgetService } from '../services/budget.service';
 import { Expense } from '../models/expense/expense.types';
+import { BudgetService } from '../services/budget.service';
 
 export function renderExpensesList(
   list: HTMLUListElement | null,
@@ -7,7 +7,9 @@ export function renderExpensesList(
   budgetService: BudgetService,
   withRemove = false
 ): void {
-  if (!list) return;
+  if (!list) {
+    return;
+  }
 
   list.innerHTML = '';
 

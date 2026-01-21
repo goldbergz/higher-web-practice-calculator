@@ -1,8 +1,8 @@
 import { Page } from '../components/Page';
-import { Router } from '../models/Router';
 import { BudgetStore } from '../models/budget/budget.store';
-import { BudgetService } from '../services/budget.service';
+import { Router } from '../models/Router';
 import { BudgetSelectors } from '../services/budget.selectors';
+import { BudgetService } from '../services/budget.service';
 import { showFormErrors } from '../services/errors.service';
 import { BudgetValidator, DepositValidator } from '../services/validation.service';
 
@@ -30,7 +30,9 @@ export class EditPage extends Page {
 
     const render = () => {
       const state = this.store.getState();
-      if (!state.budget) return;
+      if (!state.budget) {
+        return;
+      }
 
       totalBalanceEditElement.textContent = `${state.budget.initialBalance} ₽`;
       daysInfoEditElement.textContent = `на ${BudgetSelectors.daysLeft(state)} дней`;
@@ -80,7 +82,9 @@ export class EditPage extends Page {
       }
 
       const currentState = this.store.getState();
-      if (!currentState.budget) return;
+      if (!currentState.budget) {
+        return;
+      }
 
       const newBudgetData = {
         initialBalance: currentState.budget.initialBalance + deposit,

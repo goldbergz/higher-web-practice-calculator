@@ -17,7 +17,9 @@ export class BudgetSelectors {
 
   static perDayLimit(state: BudgetState): number {
     const days = this.daysLeft(state);
-    if (!days || !state.budget) return 0;
+    if (!days || !state.budget) {
+      return 0;
+    }
 
     return Math.round((this.remainingBalance(state) / days) * 10) / 10;
   }
@@ -28,14 +30,18 @@ export class BudgetSelectors {
   }
 
   static todayAvailable(state: BudgetState): number {
-    if (!state.budget) return 0;
+    if (!state.budget) {
+      return 0;
+    }
     const spentToday = this.todayExpenses(state).reduce((sum, e) => sum + e.amount, 0);
     return state.budget.dailyLimit - spentToday;
   }
 
   static adjustedDailyAvailable(state: BudgetState): number {
     const todayAvailable = this.todayAvailable(state);
-    if (!state.budget) return 0;
+    if (!state.budget) {
+      return 0;
+    }
 
     return todayAvailable < 0
       ? Math.max(state.budget.dailyLimit + todayAvailable, 0)
@@ -51,7 +57,9 @@ export class BudgetSelectors {
 
   static averageTodayExpense(state: BudgetState): number {
     const expenses = BudgetSelectors.todayExpenses(state);
-    if (expenses.length === 0) return 0;
+    if (expenses.length === 0) {
+      return 0;
+    }
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
     return Math.round((total / expenses.length) * 10) / 10;
   }

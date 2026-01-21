@@ -1,9 +1,9 @@
+import { renderExpensesList } from '../components/ExpenseList';
 import { Page } from '../components/Page';
-import { Router } from '../models/Router';
 import { BudgetStore } from '../models/budget/budget.store';
+import { Router } from '../models/Router';
 import { BudgetSelectors } from '../services/budget.selectors';
 import { BudgetService } from '../services/budget.service';
-import { renderExpensesList } from '../components/ExpenseList';
 
 export class HistoryPage extends Page {
   private unsubscribe: (() => void) | null = null;

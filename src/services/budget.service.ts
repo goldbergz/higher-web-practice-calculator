@@ -1,8 +1,9 @@
 import { BudgetStore } from '../models/budget/budget.store';
-import { BudgetRepository } from './budget.repository';
 import { Budget } from '../models/budget/budget.types';
 import { Expense } from '../models/expense/expense.types';
 import { DateUtils } from '../utils/date.utils';
+
+import { BudgetRepository } from './budget.repository';
 
 export class BudgetService {
   constructor(
@@ -13,7 +14,9 @@ export class BudgetService {
   async init(): Promise<void> {
     const budget = await this.repo.getBudget();
     const expenses = await this.repo.getExpenses();
-    if (!budget) return;
+    if (!budget) {
+      return;
+    }
 
     this.store.setBudget(budget);
     this.store.setExpenses(expenses);
@@ -58,7 +61,9 @@ export class BudgetService {
 
   getRemainingBalance(): number {
     const state = this.store.getState();
-    if (!state.budget) return 0;
+    if (!state.budget) {
+      return 0;
+    }
     return state.budget.initialBalance - this.getTotalExpenses();
   }
 }

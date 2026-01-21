@@ -11,6 +11,6 @@ export interface BudgetState {
   expenses: Expense[];
 }
 
-export type Deposit = {
+export interface Deposit {
   deposit: number;
-};
+}

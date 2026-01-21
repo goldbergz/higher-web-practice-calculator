@@ -1,6 +1,6 @@
-import { dbPromise, BUDGET_STORE, EXPENSE_STORE } from '../utils/db';
 import { Budget } from '../models/budget/budget.types';
 import { Expense } from '../models/expense/expense.types';
+import { dbPromise, BUDGET_STORE, EXPENSE_STORE } from '../utils/db';
 
 const BUDGET_ID = 'main';
 

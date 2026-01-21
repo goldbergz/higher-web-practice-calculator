@@ -1,12 +1,12 @@
-import { Page } from '../components/Page';
-import { Router } from '../models/Router';
-import { BudgetStore } from '../models/budget/budget.store';
-import { BudgetService } from '../services/budget.service';
-import { Expense } from '../models/expense/expense.types';
-import { ExpenseValidator } from '../services/validation.service';
-import { showFormErrors } from '../services/errors.service';
 import { renderExpensesList } from '../components/ExpenseList';
+import { Page } from '../components/Page';
+import { BudgetStore } from '../models/budget/budget.store';
+import { Expense } from '../models/expense/expense.types';
+import { Router } from '../models/Router';
 import { BudgetSelectors } from '../services/budget.selectors';
+import { BudgetService } from '../services/budget.service';
+import { showFormErrors } from '../services/errors.service';
+import { ExpenseValidator } from '../services/validation.service';
 
 export class MainPage extends Page {
   private unsubscribe: (() => void) | null = null;
@@ -35,7 +35,9 @@ export class MainPage extends Page {
 
     const render = () => {
       const state = this.store.getState();
-      if (!state.budget) return;
+      if (!state.budget) {
+        return;
+      }
 
       totalBalanceElement.textContent = `${state.budget.initialBalance} ₽`;
       daysInfoElement.textContent = `на ${BudgetSelectors.daysLeft(state)} дней`;
