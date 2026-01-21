@@ -3,16 +3,19 @@ import { Expense } from '../utils/ZodSchema';
 
 const DAY = 86400000;
 
-export const BudgetSelectors = {
-  totalExpenses(state: AppState): number {
+const round = (value: number): number =>
+  Math.round(value * 10) / 10;
+
+export class BudgetSelectors {
+  static totalExpenses(state: AppState): number {
     return state.expenses.reduce((sum, e) => sum + e.amount, 0);
-  },
+  }
 
-  remainingBalance(state: AppState): number {
+  static remainingBalance(state: AppState): number {
     return state.initialBalance - this.totalExpenses(state);
-  },
+  }
 
-  daysLeft(state: AppState): number {
+  static daysLeft(state: AppState): number {
     if (!state.endDate) return 0;
 
     const today = new Date();
@@ -22,19 +25,20 @@ export const BudgetSelectors = {
     end.setHours(0, 0, 0, 0);
 
     return Math.max(Math.ceil((end.getTime() - today.getTime()) / DAY), 1);
-  },
+  }
 
-  perDayLimit(state: AppState): number {
+  static perDayLimit(state: AppState): number {
     const days = this.daysLeft(state);
     if (!days) return 0;
 
-    return Math.floor(this.remainingBalance(state) / days);
-  },
+    return round(this.remainingBalance(state) / days);
+  }
 
-  dailyAvailable(state: AppState): number {
+  static dailyAvailable(state: AppState): number {
     return state.dailyAmount;
-  },
-  todayAvailable(state: AppState): number {
+  }
+
+  static todayAvailable(state: AppState): number {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -47,9 +51,9 @@ export const BudgetSelectors = {
       .reduce((sum, e) => sum + e.amount, 0);
 
     return state.dailyAmount - spentToday;
-  },
+  }
 
-  todayExpenses(state: AppState): Expense[] {
+  static todayExpenses(state: AppState): Expense[] {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return state.expenses.filter(expense => {
@@ -57,25 +61,27 @@ export const BudgetSelectors = {
       expenseDate.setHours(0, 0, 0, 0);
       return expenseDate.getTime() === today.getTime();
     });
-  },
+  }
 
-  averageTodayExpense(state: AppState): number {
+  static averageTodayExpense(state: AppState): number {
     const expenses = BudgetSelectors.todayExpenses(state);
     if (expenses.length === 0) return 0;
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-    return Math.floor(total / expenses.length);
-  },
+    return round(total / expenses.length);
+  }
 
-  adjustedDailyAvailable(state: AppState): number {
+  static adjustedDailyAvailable(state: AppState): number {
     const todayAvailable = this.todayAvailable(state);
     const dailyAvailable = this.dailyAvailable(state);
-    return todayAvailable < 0 ? Math.max(dailyAvailable + todayAvailable, 0) : dailyAvailable;
-  },
+    return todayAvailable < 0
+      ? round(Math.max(dailyAvailable + todayAvailable, 0))
+      : round(dailyAvailable);
+  }
 
-  dailyFeedback(state: AppState): string {
+  static dailyFeedback(state: AppState): string {
     const todayAvailable = this.todayAvailable(state);
     return todayAvailable > 0
       ? '🎉 Отлично справились — сегодня вы в пределах лимита!'
       : 'К сожалению, сегодня не получилось вписаться в лимит.';
-  },
+  }
 };

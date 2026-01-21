@@ -10,10 +10,6 @@ export function renderExpensesList(
 
   list.innerHTML = '';
 
-  const today = new Date().toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-  });
 
   expenses.forEach(exp => {
     const li = document.createElement('li');
@@ -34,8 +30,11 @@ export function renderExpensesList(
 
     const date = document.createElement('span');
     date.className = 'list-item-date';
-    date.textContent = today;
-
+date.textContent = new Date(exp.date).toLocaleDateString('ru-RU', {
+      day: 'numeric',
+      month: 'long',
+});
+    
     rightSection.appendChild(date);
 
     if (withRemove && exp.id !== undefined) {
